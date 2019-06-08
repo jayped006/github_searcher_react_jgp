@@ -1,12 +1,13 @@
-import React, { Component, Fragment } from 'react';
-import './App.css'; // global CSS
+import React, { Component } from 'react';
+import Navbar from './components/layout/Navbar';
+import './App.css';
 
 class App extends Component {
-  render() {  // Lifecycle method
+  render() {
     return (
-      <Fragment>
-        <h1>Hello</h1>
-      </Fragment>
+      <div className='App'>
+        <Navbar />
+      </div>
     );
   }
 }
