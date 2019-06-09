@@ -12,7 +12,9 @@ class App extends Component {
 
   async componentDidMount() {
     this.setState({ loading: true});  // cant simply use state.loading directly
-    const res = await axios.get('https://api.github.com/users?client_id=6eb89c1cef55190c2a11&client_secret=c5a3a3720db41bee7035836578d0e52e6485da29');
+    const api_url = `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    // console.log(api_url);
+    const res = await axios.get(api_url);
     this.setState({ users: res.data, loading: false } );
     // console.log(res.data);
   }
