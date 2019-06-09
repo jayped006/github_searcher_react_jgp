@@ -1,29 +1,31 @@
-import React, { Component } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types';
 
-export class UserItem extends Component {
-    // Requires props -- with login, avatar_url, html_url
-    render() {
-        const { login, avatar_url, html_url } = this.props.user; // Deconstruct props
-        // NOTE: local variables -- not state attribute
+const UserItem = (props) => {  // Requires props -- with login, avatar_url, html_url
+    const { login, avatar_url, html_url } = props.user; // Deconstruct props
+    // NOTE: local variables -- not state attribute
 
-        return (
-          <div className='card text-center'>
-            <img
-              src={avatar_url}
-              alt=''
-              className='round-img'
-              style={{ width: '60px' }}
-            />
-            <h3>{login}</h3>
-    
-            <div>
-              <a href={html_url} className='btn btn-dark btn-sm my-1'>
-                More
-              </a>
-            </div>
-          </div>
-        );
-    }
+    return (
+      <div className='card text-center'>
+        <img
+          src={avatar_url}
+          alt=''
+          className='round-img'
+          style={{ width: '60px' }}
+        />
+        <h3>{login}</h3>
+
+        <div>
+          <a href={html_url} className='btn btn-dark btn-sm my-1'>
+            More
+          </a>
+        </div>
+      </div>
+    );
+}
+
+UserItem.propTypes = {
+    user: PropTypes.object.isRequired, // doesnt specify need for avatar_url, etc
 }
 
 export default UserItem
