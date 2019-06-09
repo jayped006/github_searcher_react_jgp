@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
 
 const UserItem = (props) => {  // Requires props -- with login, avatar_url, html_url
     const { login, avatar_url, html_url } = props.user; // Deconstruct props
-    // NOTE: local variables -- not state attribute
+    // NOTE: local variables -- not prop or state attribute
 
     return (
       <div className='card text-center'>

@@ -7,7 +7,7 @@ import './App.css';
 class App extends Component {
   state = {
     users: [],
-    loading: false // set true once loaded
+    loading: true // set true once loaded
   }
 
   async componentDidMount() {
