@@ -7,9 +7,10 @@ const Users = ({users, loading}) => { // props with users (list) and loading att
         loading
         ? <Spinner />
         : <div style={userStyle}>
-                    {users.map(user => (
+                    { users.map(user => (
                         <UserItem key={user.id} user={user} />
-                    ))}
+                      ))
+                    }
         </div>
     )
     // NOTE: What stops the spinner?  App.js creates Users component with loading false.

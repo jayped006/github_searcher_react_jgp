@@ -4,10 +4,12 @@ import PropTypes from 'prop-types';
 export class Search extends Component {
 
     // props -- required to have
-    //   searchUsers function -- search GITHUB API for users async
+    //   searchUsers function --
+    //     search GITHUB API for users async
     //   clearUsers function -- state management
     //     clear the global users list state and loading: false
     //   showClear boolean
+    //     if true, show the 'clear' button, else dont (after form)
     //
     //   Example instantiation (e.g. from App.js)
     //       <Search
@@ -55,7 +57,7 @@ export class Search extends Component {
                 className='btn btn-dark btn-block'
               />
             </form>
-            {showClear && (
+            { showClear && (
               <button className='btn btn-light btn-block' onClick={clearUsers}>
                 Clear
               </button>
