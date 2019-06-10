@@ -1,30 +1,39 @@
 import React, { Component } from 'react';
 import Navbar from './components/layout/Navbar';
 import Users from './components/users/Users';
+import Search from './components/users/Search';
 import axios from 'axios';
 import './App.css';
 
 class App extends Component {
   state = {
     users: [],
-    loading: true // set true once loaded
+    loading: false // set true once loaded
   }
 
-  async componentDidMount() {
-    this.setState({ loading: true});  // cant simply use state.loading directly
-    const api_url = `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-    // console.log(api_url);
+   // Search Github users (me: what of componentDidMount?)
+   searchUsers = async text => {
+    this.setState({ loading: true });
+    const api_url = `https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
     const res = await axios.get(api_url);
-    this.setState({ users: res.data, loading: false } );
-    // console.log(res.data);
-  }
+    this.setState({ users: res.data.items, loading: false });
+      // Note: guaranteed to have res.data.items because of 'await'
+  };
+
+  // Clear users from state
+  clearUsers = () => this.setState({ users: [], loading: false });
 
   render() {
     return (
       <div className='App'>
-        <Navbar   title="Github Finder (JGP)" icon="fab fa-github"/>
+        <Navbar />
         <div className='container'>
-          <Users loading={this.state.loading} users={this.state.users}/>
+          <Search
+            searchUsers={this.searchUsers}
+            clearUsers={this.clearUsers}
+            showClear={this.state.users.length > 0 ? true : false}
+          />
+          <Users loading={this.state.loading} users={this.state.users} />
         </div>
       </div>
     );
