@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import Navbar from './components/layout/Navbar';
 import Users from './components/users/Users';
 import Search from './components/users/Search';
+import Alert from './components/layout/Alert';
 import axios from 'axios';
 import './App.css';
 
 class App extends Component {
   state = {
     users: [],
-    loading: false // set true once loaded
+    loading: false, // true while async loading in place ==> Spinner
+    alert: null // console.log analog, when not null -- object with msg, type
   }
 
    // Search Github users (me: what of componentDidMount?)
@@ -23,15 +25,24 @@ class App extends Component {
   // Clear users from state
   clearUsers = () => this.setState({ users: [], loading: false });
 
+  // Alert
+  setAlert = (alertMsg, alertType) => {
+    this.setState({ alert: { msg: alertMsg, type: alertType}});
+
+    setTimeout(() => this.setState({ alert: null }), 3000);
+  };
+
   render() {
     return (
       <div className='App'>
         <Navbar />
         <div className='container'>
+          <Alert alert={this.state.alert} />
           <Search
             searchUsers={this.searchUsers}
             clearUsers={this.clearUsers}
             showClear={this.state.users.length > 0 ? true : false}
+            setAlert={this.setAlert}
           />
           <Users loading={this.state.loading} users={this.state.users} />
         </div>

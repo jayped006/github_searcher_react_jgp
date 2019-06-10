@@ -12,7 +12,7 @@ const Users = ({users, loading}) => { // props with users (list) and loading att
                       ))
                     }
         </div>
-    )
+    );
     // NOTE: What stops the spinner?  App.js creates Users component with loading false.
     //       So the spinner starts spinning.  App.js componentDidMount
     //       starts async request to github api, and does async wait.

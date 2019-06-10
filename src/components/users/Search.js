@@ -25,15 +25,20 @@ export class Search extends Component {
     static propTypes = {
         searchUsers: PropTypes.func.isRequired,
         clearUsers: PropTypes.func.isRequired,
-        showClear: PropTypes.bool.isRequired
+        showClear: PropTypes.bool.isRequired,
+        setAlert: PropTypes.func.isRequired
       };
     
       onSubmit = e => {
         e.preventDefault();
-        this.props.searchUsers(this.state.text);
-          // NOTE: github api search function, passed with props
-        this.setState({ text: '' });
-          // Reset for next search, already saved the prev value.
+        if (this.state.text === '') {
+            this.props.setAlert('Empty search phrase, please enter a search phrase', 'light');
+        } else { // user has entered a search string
+            this.props.searchUsers(this.state.text);
+            // NOTE: github api search function, passed with props
+            this.setState({ text: '' });
+            // Reset for next search, already saved the prev value.
+        }
       };
     
       onChange = e => this.setState({ [e.target.name]: e.target.value });
