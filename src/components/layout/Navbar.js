@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Navbar = ({icon, title}) => { // if props passed, need title and icon strings
@@ -8,6 +9,10 @@ const Navbar = ({icon, title}) => { // if props passed, need title and icon stri
       <h1>
         <i className={icon} /> {title}
       </h1>
+      <ul>
+        <li><Link to='/'>Home</Link></li>
+        <li><Link to='/about'>About</Link></li>
+      </ul>
     </nav>
   );
 }
