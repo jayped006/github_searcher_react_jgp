@@ -1,25 +1,22 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import UserItem from './UserItem';
 import Spinner from '../layout/Spinner';
+import GithubContext from '../../context/github/githubContext';
 
-const Users = ({users, loading}) => { // props with users (list) and loading attributes
+const Users = () => { // props with users (list) and loading attributes
+    const githubContext = useContext(GithubContext);
+    const { loading, users } = githubContext;
     return (
         loading
         ? <Spinner />
         : <div style={userStyle}>
-                    { users.map(user => (
-                        <UserItem key={user.id} user={user} />
-                      ))
-                    }
-        </div>
+              { users.map( user => ( <UserItem key={user.id} user={user} /> ) ) }
+          </div>
     );
-    // NOTE: What stops the spinner?  App.js creates Users component with loading false.
-    //       So the spinner starts spinning.  App.js componentDidMount
-    //       starts async request to github api, and does async wait.
-    //       Afterwards, it sets loading to false in state within App.
-    //          App.js DidMount ==> this.setState({ users: res.data, loading: false } );
-    //       How does this percolate down to the Users component and
-    //       cause it to update?
+    // NOTE: What stops the spinner?
+    //       VDOM processing triggered of render().
+    //       Cascade render of children.
+    //       loading now false. No more Spinner.
 };
 
 const userStyle = {
