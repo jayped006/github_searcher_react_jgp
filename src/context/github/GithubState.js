@@ -30,7 +30,7 @@ const GithubState = props => {
   // state variables -- users et al
   const initialState = {
     users: [],
-    user: {},
+    user:  {},
     repos: [],
     loading: false
   };
@@ -43,8 +43,7 @@ const GithubState = props => {
   const searchUsers = async text => {
     setLoading();
     const api_url = `https://api.github.com/search/users?q=${text}&${githubApiKeyParam}`;
-    const res = await axios.get(api_url);
-    // At this point -- async activity completed
+    const res = await axios.get(api_url); // sets res.data.items
     dispatch({ type: SEARCH_USERS, payload: res.data.items });
   };
 
@@ -52,7 +51,7 @@ const GithubState = props => {
   const getUser = async username => {
     setLoading();
     const api_url = `https://api.github.com/users/${username}?${githubApiKeyParam}`;
-    const res = await axios.get(api_url);
+    const res = await axios.get(api_url);  // res.data is result
     dispatch({ type: GET_USER, payload: res.data });
   };
 
@@ -74,9 +73,9 @@ const GithubState = props => {
     <GithubContext.Provider
       value={{
         // state attributes
-        users: state.users,
-        user: state.user,
-        repos: state.repos,
+        users:   state.users,
+        user:    state.user,
+        repos:   state.repos,
         loading: state.loading,
         // state methods
         searchUsers,
